@@ -50,7 +50,7 @@ jobs:
         path: tmp
 
     - name: Load Docker image
-      run: docker load --input docker-image/tmp/image.tar
+      run: docker load --input /home/runner/work/Cloud-Computing-And-Software-Engineering-HW3-main/Cloud-Computing-And-Software-Engineering-HW3-main/tmp/image.tar
 
 
     - name: Run Docker container
