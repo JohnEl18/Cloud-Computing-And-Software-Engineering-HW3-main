@@ -20,11 +20,11 @@ jobs:
         docker build -t my-service . && echo "image successfully built" >> log.txt || (echo "image not able to be built" >> log.txt && exit 1)
         docker save my-service -o image.tar
         
-    - name: Upload Docker image
-      uses: actions/upload-artifact@v3
-      with:
-        name: docker-image
-        path: /tmp/image.tar
+#    - name: Upload Docker image
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: docker-image
+#        path: /tmp/image.tar
 
 
     - name: Upload log file
@@ -38,6 +38,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Download log file for testing purposes
+      uses: actions/download-artifact@v3
+      with:
+        name: log.txt
+
     - name: Download Docker image
       uses: actions/download-artifact@v3
       with:
