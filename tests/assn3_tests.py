@@ -2,9 +2,9 @@ import requests
 import pytest
 
 # Base URL of your service
-base_url = "http://localhost:8000"
+#base_url = "http://localhost:8000"
 
-import requests
+#import requests
 def test_always_true():
     assert True
 
