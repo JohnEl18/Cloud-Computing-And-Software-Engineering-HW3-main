@@ -191,7 +191,6 @@ api.add_resource(Meals, "/meals")
 api.add_resource(Meal, '/meals/<key>')
 
 if __name__ == '__main__':
-    #test commit
     # create collection dictionary and keys list
     print("running rest-word-svr-v1.py")
     # run Flask app.   default part is 5000
