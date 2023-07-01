@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Check out repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Build Docker image
       id: build-image
@@ -24,7 +24,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: docker-image
-        path: image.tar
+        path: /tmp/image.tar
 
 
     - name: Upload log file
@@ -42,9 +42,10 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: docker-image
+        path: /tmp
 
     - name: Load Docker image
-      run: docker load -i docker-image/image.tar
+      run: docker load --input docker-image/tmp/image.tar
 
 
     - name: Run Docker container
@@ -83,7 +84,7 @@ jobs:
 
     steps:
     - name: Check out repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Download Docker image
       uses: actions/download-artifact@v3
