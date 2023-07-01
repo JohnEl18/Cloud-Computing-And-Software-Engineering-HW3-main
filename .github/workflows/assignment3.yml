@@ -35,9 +35,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Print image path
+      run: echo ${{ env.image }}
+
     - name: Load Docker image
-      run: |
-        docker load -i ${{ env.image }}
+      run: docker load -i "${{ env.image }}"
+
 
     - name: Run Docker container
       run: |
