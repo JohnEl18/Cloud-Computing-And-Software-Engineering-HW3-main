@@ -39,11 +39,11 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Download log file for testing purposes
-      uses: actions/download-artifact@v3
-      with:
-        name: log
-        path: tmp
+#    - name: Download log file for testing purposes
+#      uses: actions/download-artifact@v3
+#      with:
+#        name: log
+#        path: tmp
 
     - name: Download Docker image
       uses: actions/download-artifact@v3
