@@ -20,6 +20,9 @@ jobs:
         docker build -t my-service . && echo "image successfully built" >> log.txt || (echo "image not able to be built" >> log.txt && exit 1)
         docker save my-service -o image.tar
         echo "image=$(pwd)/image.tar" >> $GITHUB_ENV
+    - name: Print image path
+      run: echo ${{ env.image }}
+
 
     - name: Upload log file
       uses: actions/upload-artifact@v3
