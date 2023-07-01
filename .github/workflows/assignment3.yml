@@ -39,6 +39,16 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+
     - name: Download log file for testing purposes
       uses: actions/download-artifact@v3
       with:
@@ -59,15 +69,7 @@ jobs:
       run: |
         docker run -d --name my-service-container -p 8000:8000 my-service && echo "Container up and running" >> log.txt || (echo "Container failed to run" >> log.txt && exit 1)
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pytest
 
     - name: Run Pytest
       run: |
@@ -84,6 +86,12 @@ jobs:
       with:
         name: log
         path: log.txt
+
+    - name: Upload updated log file
+      uses: actions/upload-artifact@v3
+      with:
+        name: assn3_test_results
+        path: assn3_test_results.txt
 
 #  query:
 #    needs: build
