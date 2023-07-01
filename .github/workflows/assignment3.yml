@@ -19,9 +19,12 @@ jobs:
         echo "Yehontan Eliyahu Moshe Azulay" >> log.txt
         docker build -t my-service . && echo "image successfully built" >> log.txt || (echo "image not able to be built" >> log.txt && exit 1)
         docker save my-service -o image.tar
-        echo "image=$(pwd)/image.tar" >> $GITHUB_ENV
-    - name: Print image path
-      run: echo ${{ env.image }}
+        
+    - name: Upload Docker image
+      uses: actions/upload-artifact@v3
+      with:
+        name: docker-image
+        path: image.tar
 
 
     - name: Upload log file
@@ -35,11 +38,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Print image path
-      run: echo ${{ env.image }}
+    - name: Download Docker image
+      uses: actions/download-artifact@v3
+      with:
+        name: docker-image
 
     - name: Load Docker image
-      run: docker load -i "${{ env.image }}"
+      run: docker load -i docker-image/image.tar
 
 
     - name: Run Docker container
@@ -80,9 +85,13 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
 
+    - name: Download Docker image
+      uses: actions/download-artifact@v3
+      with:
+        name: docker-image
+
     - name: Load Docker image
-      run: |
-        docker load -i ${{ env.image }}
+      run: docker load -i docker-image/image.tar
 
     - name: Run Docker container
       run: |
