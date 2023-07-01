@@ -2,7 +2,7 @@ name: log-workflow
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   create-log:
