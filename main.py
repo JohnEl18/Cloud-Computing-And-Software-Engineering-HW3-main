@@ -189,7 +189,7 @@ api.add_resource(Dishes, "/dishes")
 api.add_resource(Dish, '/dishes/<key>')
 api.add_resource(Meals, "/meals")
 api.add_resource(Meal, '/meals/<key>')
-#####trigger workflow
+######trigger workflow
 if __name__ == '__main__':
     # create collection dictionary and keys list
     print("running rest-word-svr-v1.py")
