@@ -75,12 +75,6 @@ jobs:
       run: |
         pytest -v tests/assn3_tests.py > assn3_test_results.txt && echo "tests succeeded" >> log.txt || (echo "tests failed" >> log.txt && exit 1)
 
-    - name: Upload pytest results
-      uses: actions/upload-artifact@v3
-      with:
-        name: pytest-results
-        path: assn3_test_results.txt
-
     - name: Upload updated log file
       uses: actions/upload-artifact@v3
       with:
