@@ -73,8 +73,7 @@ jobs:
 
     - name: Run Pytest
       run: |
-        pytest -v tests/assn3_tests.py
-#        > assn3_test_results.txt && echo "tests succeeded" >> log.txt || (echo "tests failed" >> log.txt && exit 1)
+        pytest -v tests/assn3_tests.py > assn3_test_results.txt && echo "tests succeeded" >> log.txt || (echo "tests failed" >> log.txt && exit 1)
 
     - name: Upload pytest results
       uses: actions/upload-artifact@v3
