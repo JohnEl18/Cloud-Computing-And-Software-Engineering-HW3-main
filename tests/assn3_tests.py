@@ -1,5 +1,5 @@
-import requests
-import pytest
+# import requests
+# import pytest
 
 # Base URL of your service
 #base_url = "http://localhost:8000"
