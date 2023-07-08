@@ -87,41 +87,41 @@ jobs:
         name: assn3_test_results
         path: assn3_test_results.txt
 
-#  query:
-#    needs: build
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#    - name: Check out repository
-#      uses: actions/checkout@v3
-#
-#    - name: Download Docker image
-#      uses: actions/download-artifact@v3
-#      with:
-#        name: docker-image
-#
-#    - name: Load Docker image
-#      run: docker load --input /home/runner/work/Cloud-Computing-And-Software-Engineering-HW3-main/Cloud-Computing-And-Software-Engineering-HW3-main/tmp/image.tar
-#
-#    - name: Run Docker container
-#      run: |
-#        docker run -d --name my-service-container -p 8000:8000 my-service
-#
-#    - name: Set up Python
-#      uses: actions/setup-python@v2
-#      with:
-#        python-version: 3.8
-#
-#    - name: Install dependencies
-#      run: |
-#        python -m pip install --upgrade pip
-#        pip install requests
-#
-#    - name: Query the service
-#      run: python query_script.py
-#
-#    - name: Upload query results
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: query-results
-#        path: response.txt
+  query:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Download Docker image
+      uses: actions/download-artifact@v3
+      with:
+        name: docker-image
+
+    - name: Load Docker image
+      run: docker load --input /home/runner/work/Cloud-Computing-And-Software-Engineering-HW3-main/Cloud-Computing-And-Software-Engineering-HW3-main/tmp/image.tar
+
+    - name: Run Docker container
+      run: |
+        docker run -d --name my-service-container -p 8000:8000 my-service
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Query the service
+      run: python query_script.py
+
+    - name: Upload query results
+      uses: actions/upload-artifact@v3
+      with:
+        name: query-results
+        path: response.txt
