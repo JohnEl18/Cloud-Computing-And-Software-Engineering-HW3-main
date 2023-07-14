@@ -72,7 +72,6 @@ jobs:
 
 
     - name: Run Pytest
-      needs: test
       run: |
         pytest -v tests/assn3_tests.py > assn3_test_results.txt && echo "tests succeeded" >> log.txt || (echo "tests failed" >> log.txt && exit 1)
 
@@ -89,7 +88,7 @@ jobs:
         path: assn3_test_results.txt
 
   query:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
