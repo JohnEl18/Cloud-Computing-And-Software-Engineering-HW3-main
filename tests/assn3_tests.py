@@ -1,12 +1,29 @@
-# import requests
+import requests
+import json
+
 # import pytest
 
-# Base URL of your service
-#base_url = "http://localhost:8000"
+SERVICE_URL = "http://localhost:8000"
+DISHES_ENDPOINT = "dishes"
+
 
 # import requests
 def test_always_true():
     assert True
+
+
+def test_add_three_dishes():
+    dishes = ["orange", "spaghetti", "apple pie"]
+    added_dishes_id = []
+
+    for dish in dishes:
+        response = requests.post(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}",
+                                 headers={"Content-Type": "application/json"},
+                                 data=json.dumps({"name": dish}))
+
+        assert response.content in added_dishes_id
+        assert response.status_code == 201
+        added_dishes_id.append(response.content)
 
 # def test_post_dishes():
 #     base_url = 'http://localhost:8000'
@@ -25,7 +42,6 @@ def test_always_true():
 #
 #     # Check that all IDs are unique
 #     assert len(ids) == len(set(ids)), "Not all IDs are unique"
-
 
 
 #
