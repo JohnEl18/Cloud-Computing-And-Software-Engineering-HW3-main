@@ -1,10 +1,13 @@
-import requests
 import json
+
+import requests
 
 # import pytest
 
-SERVICE_URL = "http://localhost:8000"
+SERVICE_URL = "http://my-service-container:8000"
 DISHES_ENDPOINT = "dishes"
+
+ORANGE_DISH_ID = None
 
 
 # import requests
@@ -23,7 +26,21 @@ def test_add_three_dishes():
 
         assert response.content in added_dishes_id
         assert response.status_code == 201
+
+        if dish == "orange":
+            ORANGE_DISH_ID = response.content
         added_dishes_id.append(response.content)
+
+
+def test_retrieve_orange_dish():
+    assert ORANGE_DISH_ID is not None
+
+    response = requests.get(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}/{ORANGE_DISH_ID}")
+
+    assert response.status_code == 200
+    nutrition = response.json()
+
+    assert nutrition["sodium"] >= 0.9 and nutrition["sodium"] <= 1.1
 
 # def test_post_dishes():
 #     base_url = 'http://localhost:8000'
