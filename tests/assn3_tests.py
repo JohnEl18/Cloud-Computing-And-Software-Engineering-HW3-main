@@ -2,7 +2,7 @@ import json
 
 import requests
 
-SERVICE_URL = "http://my-service-container:8000"
+SERVICE_URL = "http://localhost:8000"
 DISHES_ENDPOINT = "dishes"
 MEALS_ENDPOINT = "meals"
 
