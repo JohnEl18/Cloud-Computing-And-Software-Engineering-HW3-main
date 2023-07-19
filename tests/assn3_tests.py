@@ -4,8 +4,9 @@ import requests
 
 SERVICE_URL = "http://my-service-container:8000"
 DISHES_ENDPOINT = "dishes"
+MEALS_ENDPOINT = "meals"
 
-ORANGE_DISH_ID = None
+ADDED_DISHES = {}
 
 
 # import requests
@@ -25,15 +26,14 @@ def test_add_three_dishes():
         assert response.content in added_dishes_id
         assert response.status_code == 201
 
-        if dish == "orange":
-            ORANGE_DISH_ID = response.content
+        ADDED_DISHES[dish] = response.content
         added_dishes_id.append(response.content)
 
 
 def test_retrieve_orange_dish():
-    assert ORANGE_DISH_ID is not None
+    assert "orange" in ADDED_DISHES
 
-    response = requests.get(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}/{ORANGE_DISH_ID}")
+    response = requests.get(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}/{ADDED_DISHES['orange']}")
 
     assert response.status_code == 200
     nutrition = response.json()
@@ -57,3 +57,55 @@ def test_invalid_dish_name():
 
     assert response.status_code in [404, 400, 422]
     assert response.content == "-3"
+
+
+def test_add_existing_dish():
+    response = requests.post(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}",
+                             headers={"Content-Type": "application/json"},
+                             data=json.dumps({"name": "orange"}))
+
+    assert response.status_code in [404, 400, 422]
+    assert response.content == "-2"
+
+
+def test_add_meal():
+    meal = {
+        "name": "delicious",
+        "appetizer": ADDED_DISHES["orange"],
+        "main": ADDED_DISHES["spaghetti"],
+        "dessert": ADDED_DISHES["apple pie"]
+    }
+
+    response = requests.post(url=f"{SERVICE_URL}/{MEALS_ENDPOINT}",
+                             headers={"Content-Type": "application/json"},
+                             data=json.dumps(meal))
+
+    assert response.status_code == 201
+    assert int(response.content) > 0
+
+
+def test_retrieve_all_meals():
+    response = requests.get(url=f"{SERVICE_URL}/{MEALS_ENDPOINT}")
+
+    assert response.status_code == 200
+
+    meals = response.json()
+    assert len(meals.keys()) == 1
+
+    assert meals[meals.keys()[0]]["cal"] >= 400 and meals[meals.keys()[0]]["cal"] <= 500
+
+
+def test_add_existing_meal():
+    meal = {
+        "name": "delicious",
+        "appetizer": ADDED_DISHES["orange"],
+        "main": ADDED_DISHES["spaghetti"],
+        "dessert": ADDED_DISHES["apple pie"]
+    }
+
+    response = requests.post(url=f"{SERVICE_URL}/{MEALS_ENDPOINT}",
+                             headers={"Content-Type": "application/json"},
+                             data=json.dumps(meal))
+
+    assert response.status_code in [400, 422]
+    assert response.content == "-2"

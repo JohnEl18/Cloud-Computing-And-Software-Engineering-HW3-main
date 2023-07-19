@@ -73,7 +73,7 @@ jobs:
 
     - name: Run Pytest
       run:
-        echo "Running pytest"
+        echo "Running pytest" >> log.txt
         pytest -v tests/assn3_tests.py > assn3_test_results.txt && echo "tests succeeded" >> log.txt || (echo "tests failed" >> log.txt && exit 1)
 
     - name: Upload updated log file
