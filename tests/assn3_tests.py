@@ -28,7 +28,7 @@ def test_add_three_dishes():
         ADDED_DISHES[dish] = response.content
         added_dishes_id.add(response.content)
 
-        assert len(added_dishes_id) == 3
+    assert len(added_dishes_id) == 3
 
 """
 def test_retrieve_orange_dish():
