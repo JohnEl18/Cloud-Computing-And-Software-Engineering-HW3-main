@@ -67,7 +67,7 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run -d --name my-service-container -p 8000:8000 my-service && echo "Container up and running" >> log.txt || (echo "Container failed to run" >> log.txt && exit 1)
+        docker run -d --name my-service-container -p 8000:8000 my-service
 
 
 
