@@ -16,22 +16,23 @@ def test_always_true():
 
 def test_add_three_dishes():
     dishes = ["orange", "spaghetti", "apple pie"]
-    added_dishes_id = []
+    added_dishes_id = set()
 
     for dish in dishes:
         response = requests.post(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}",
                                  headers={"Content-Type": "application/json"},
                                  data=json.dumps({"name": dish}))
 
-        assert response.content in added_dishes_id
         assert response.status_code == 201
 
         ADDED_DISHES[dish] = response.content
-        added_dishes_id.append(response.content)
+        added_dishes_id.add(response.content)
+
+        assert len(added_dishes_id) == 3
 
 
 def test_retrieve_orange_dish():
-    assert "orange" in ADDED_DISHES
+    assert "orange" in ADDED_DISHES.keys()
 
     response = requests.get(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}/{ADDED_DISHES['orange']}")
 
@@ -56,7 +57,7 @@ def test_invalid_dish_name():
                              data=json.dumps({"name": "blah"}))
 
     assert response.status_code in [404, 400, 422]
-    assert response.content == "-3"
+    assert int(response.content) == -3
 
 
 def test_add_existing_dish():
@@ -65,7 +66,7 @@ def test_add_existing_dish():
                              data=json.dumps({"name": "orange"}))
 
     assert response.status_code in [404, 400, 422]
-    assert response.content == "-2"
+    assert int(response.content) == -2
 
 
 def test_add_meal():
