@@ -7,11 +7,7 @@ DISHES_ENDPOINT = "dishes"
 MEALS_ENDPOINT = "meals"
 
 ADDED_DISHES = {}
-
-
-# import requests
-def test_always_true():
-    assert True
+ADDED_MEAL_ID = -1
 
 
 def test_add_three_dishes():
@@ -25,8 +21,8 @@ def test_add_three_dishes():
 
         assert response.status_code == 201
 
-        ADDED_DISHES[dish] = response.content
-        added_dishes_id.add(response.content)
+        ADDED_DISHES[dish] = response.text.replace('\n', '')
+        added_dishes_id.add(response.text.replace('\n', ''))
 
     assert len(added_dishes_id) == 3
 
@@ -57,7 +53,7 @@ def test_invalid_dish_name():
                              data=json.dumps({"name": "blah"}))
 
     assert response.status_code in [404, 400, 422]
-    assert int(response.content) == -3
+    assert int(response.text) == -3
 
 
 def test_add_existing_dish():
@@ -66,10 +62,12 @@ def test_add_existing_dish():
                              data=json.dumps({"name": "orange"}))
 
     assert response.status_code in [404, 400, 422]
-    assert int(response.content) == -2
+    assert int(response.text) == -2
 
 
 def test_add_meal():
+    global ADDED_MEAL_ID
+
     meal = {
         "name": "delicious",
         "appetizer": ADDED_DISHES["orange"],
@@ -82,7 +80,8 @@ def test_add_meal():
                              data=json.dumps(meal))
 
     assert response.status_code == 201
-    assert int(response.content) > 0
+    assert int(response.text) > 0
+    ADDED_MEAL_ID = response.text.replace('\n', '')
 
 
 def test_retrieve_all_meals():
@@ -93,7 +92,7 @@ def test_retrieve_all_meals():
     meals = response.json()
     assert len(meals.keys()) == 1
 
-    assert meals[meals.keys()[0]]["cal"] >= 400 and meals[meals.keys()[0]]["cal"] <= 500
+    assert meals[ADDED_MEAL_ID]["cal"] >= 400 and meals[ADDED_MEAL_ID]["cal"] <= 500
 
 
 def test_add_existing_meal():
@@ -109,4 +108,4 @@ def test_add_existing_meal():
                              data=json.dumps(meal))
 
     assert response.status_code in [400, 422]
-    assert response.content == "-2"
+    assert int(response.text) == -2
