@@ -13,7 +13,7 @@ ADDED_DISHES = {}
 def test_always_true():
     assert True
 
-"""
+
 def test_add_three_dishes():
     dishes = ["orange", "spaghetti", "apple pie"]
     added_dishes_id = []
@@ -109,5 +109,3 @@ def test_add_existing_meal():
 
     assert response.status_code in [400, 422]
     assert response.content == "-2"
-
-"""
