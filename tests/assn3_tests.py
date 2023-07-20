@@ -26,7 +26,6 @@ def test_add_three_dishes():
 
     assert len(added_dishes_id) == 3
 
-"""
 def test_retrieve_orange_dish():
     assert "orange" in ADDED_DISHES.keys()
 
@@ -37,7 +36,7 @@ def test_retrieve_orange_dish():
 
     assert nutrition["sodium"] >= 0.9 and nutrition["sodium"] <= 1.1
 
-
+"""
 def test_retrieve_all_dishes():
     response = requests.get(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}")
 
