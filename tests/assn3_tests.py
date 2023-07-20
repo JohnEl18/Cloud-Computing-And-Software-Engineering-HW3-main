@@ -29,6 +29,7 @@ def test_add_three_dishes():
 
 
 def test_retrieve_orange_dish():
+    assert False
     assert "orange" in ADDED_DISHES.keys()
 
     response = requests.get(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}/{ADDED_DISHES['orange']}")
