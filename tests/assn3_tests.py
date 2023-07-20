@@ -11,6 +11,7 @@ ADDED_MEAL_ID = -1
 
 
 def test_add_three_dishes():
+    assert False
     dishes = ["orange", "spaghetti", "apple pie"]
     added_dishes_id = set()
 
