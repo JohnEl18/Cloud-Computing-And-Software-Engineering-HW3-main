@@ -47,7 +47,6 @@ def test_retrieve_all_dishes():
     assert len(dishes.keys()) == 3
 
 
-"""
 def test_invalid_dish_name():
     response = requests.post(url=f"{SERVICE_URL}/{DISHES_ENDPOINT}",
                              headers={"Content-Type": "application/json"},
@@ -110,5 +109,3 @@ def test_add_existing_meal():
 
     assert response.status_code in [400, 422]
     assert int(response.text) == -2
-
-"""
