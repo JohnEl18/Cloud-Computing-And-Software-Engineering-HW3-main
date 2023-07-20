@@ -145,3 +145,9 @@ jobs:
       with:
         name: query-results
         path: response.txt
+
+    - name: Remove image
+      if: always()
+      uses: geekyeggo/delete-artifact@v2
+      with:
+        name: docker-image
