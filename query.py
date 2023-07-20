@@ -25,8 +25,7 @@ def main():
 
                 dish_nutrition = get_dish_response.json()
 
-                output_file.write(
-                    f"{dish} contains {dish_nutrition['cal']} calories, {dish_nutrition['sodium']} mgs of sodium, and {dish_nutrition['sugar']} grams of sugar\n")
+                output_line = f"{dish} contains {dish_nutrition['cal']} calories, {dish_nutrition['sodium']} mgs of sodium, and {dish_nutrition['sugar']} grams of sugar\n"
 
 
 if __name__ == '__main__':
