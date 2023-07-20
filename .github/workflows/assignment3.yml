@@ -139,7 +139,7 @@ jobs:
         pip install requests
 
     - name: Query the service
-      run: python query_script.py
+      run: python query.py
 
     - name: Upload query results
       uses: actions/upload-artifact@v3
